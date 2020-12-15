@@ -1,0 +1,43 @@
+{% extends "app/layout.html" %}
+{%block title%}{%endblock%}
+{% block content %}
+
+{% if form != None %}
+<br><h2 align="center">Отправте пожалуйста заполненную анкету</h2><br>
+    <div align="center">
+        <form method="post">
+            {% csrf_token %}
+            <lable for="{{ form.name.id_for_label }}">{{ form.name.label }}:</lable>
+            <p>{{ form.name }}</p>
+            <lable for="{{ form.city.id_for_label }}">{{ form.city.label }}:</lable>
+            <p>{{ form.city }}</p><br>
+            <lable for="{{ form.email.id_for_label }}">{{ form.email.label }}:</lable>
+            <p>{{ form.email }}</p>
+            <lable for="{{ form.message.id_for_label }}">{{ form.message.label }}:</lable>
+            <p>{{ form.message }}</p><br>
+            <input type="submit" class="btn btn-outline-primary" id="p1" value="Отправить">
+        </form>
+    </div>
+{% else %}
+
+    <br><h2>Благодарим за предоставленную информацию!</h2>
+    <h3>Вы сообщили следующие:</h3>
+    <ul>
+        <li><span>Имя:</span> {{ data.name }} </li>
+        <li><span>Город:</span> {{ data.city }} </li>
+        <li><span>e-mail:</span> {{ data.email }} </li>
+        <li><span>Ваша поломка:</span> {{ data.message }} </li>
+    </ul>
+{% endif %}
+
+	<script>
+        $(function () {
+          $("#p1").mouseover(function(){
+              $('#p1').css('background-color', 'blue')
+              //действия
+           });
+        });
+	</script>
+
+
+{% endblock %}

@@ -1,0 +1,124 @@
+{% extends "app/layout.html" %}
+{% load static %}
+{%block title%}Блог{%endblock%}
+{% block content %}
+<h2>{{title}}</h2> <br />
+
+        <section class="page-title-area bg-image ptb--80" data-bg-image="{% static 'app/img/fate.jpg' %}">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12 text-center">
+                        <h1 class="page-title">{{ title }}</h1>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- Main Content Wrapper Start -->
+        <main class="main-content-wrapper">
+            <div class="inner-page-content ptb--80 ptb-md--60">
+            <div class="inner-page-content">
+                <!-- Single Post Area Start -->
+                <div class="single-post-area mb--75 mb-md--55">
+                    <div class="container">
+                        <div class="row justify-content-center">
+                            <div class="col-lg-9">
+                                <!-- Single Post Start -->
+                                <article class="mb--75 mb-md--55 pb--75 pb-md--55">
+                                    <header class="single-post__header">
+                                        <h2 class="single-post__title text-center">{{ post_1.title }}</h2>
+                                        <div class="single-post__media">
+                                            <figure class="image">
+                                                <img src="{{ post_1.image.url }}" alt="Single Post Title" class="w-100">
+                                            </figure>
+                                        </div>
+                                        <div class="single-post__header-meta">
+                                            <span class="posted-on">{{ post_1.posted }}</span>
+                                        </div>
+                                    </header>
+                                    <div class="single-post__info">
+                                        <div class="row mb--43 mb-md-33">
+                                            <div class="col-lg-4 col-md-4 pl--45 pl-sm--15">
+                                                <div class="single-post__meta">
+                                                    <div class="posted-by">
+                                                        <span class="byline">Автор</span>
+                                                            <span>{{ user }}</span>
+                                                    </div>
+                                                    <div class="social">
+                                                        <a href="https://www.facebook.com" class="social__link">
+                                                            <i class="la la-facebook"></i>
+                                                        </a>
+                                                        <a href="https://www.twitter.com" class="social__link">
+                                                            <i class="la la-twitter"></i>
+                                                        </a>
+                                                        <a href="https://www.plus.google.com" class="social__link">
+                                                            <i class="la la-google-plus"></i>
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-8 col-md-8">
+                                                <p>{{ post_1.content|linebreaksbr }}</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </article>
+                                <!-- Single Post End -->                                
+                            </div>
+                             <!-- Comment Area Start -->
+                                <section class="comment">
+                                    <h2 class="comment-title">Комментарии</h2>
+                                    <ul class="comment-list mb--45">
+                                        {% for comment in comments %}
+                                        <li>
+                                            <div class="single-comment">
+                                                <div class="comment-info">
+                                                    <div class="comment-meta">
+                                                        <h4>{{ comment.author }}</h4>
+                                                        <div class="metadata">
+                                                            <span class="comment-date">{{ comment.date|date }}</span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="comment-content">
+                                                        <p>{{ comment.text|linebreaksbr }}</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        {% endfor %}
+                                    </ul>
+                                    <div class="comment-respond">
+                                        {% if user.is_authenticated %}
+                                        <form method="POST" class="form comment-form">
+                                            {% csrf_token %}
+                                            <div class="form__group mb--25 mb-sm--20">
+                                                <div class="form-row">
+                                                    <div class="col-12">
+                                                    {{ form.as_table }}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form__group">
+                                                <div class="form-row">
+                                                    <div class="col-12">
+                                                        <button type="submit" class="btn btn-outline-primary">Отправить</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </form>
+                                        {% else %}
+                                        <h3>Для добавления своего комментария, пожалуйста, авторизуйтесь</h3>
+                                        {% endif %}
+                                    </div>
+                                </section>
+                                <!-- Comment Area End -->
+                        </div>
+                    </div>
+                </div>
+            
+            </div>
+                </div>
+        </main>
+{% endblock %}
+
+
+

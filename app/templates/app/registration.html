@@ -1,0 +1,13 @@
+{% extends "app/layout.html" %}
+
+{% block content %}
+{% load static %}
+    <h2>Регистрация пользвателя</h2>
+ <form method="POST" >
+     {% csrf_token %}
+     {{ regform.as_table}}
+ <button type="submit" class="btn btn-outline-primary" >
+Зарегистрировать </button>
+ </form>
+{% endblock %}
+ 
